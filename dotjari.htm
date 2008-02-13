@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:widget="http://wzdapi.com/widget/" lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apiVersion" content="1.0" />
+    <meta name="author" content="돗자리" />
+    <meta name="website" content="http://wzdwoc.springnote.com/pages/719862" />
+    <meta name="description" content="씨올 채용검색" />
+    <meta name="version" content="1.0" />
+    <meta name="autoRefresh" content="1" />
+    <title>씨올 채용검색</title>
+    <link rel="icon" type="image/gif" href="icon.gif" />
+    
+    <widget:preferences>
+    </widget:preferences>
+    
+    <style type="text/css">
+        /*<![CDATA[*/
+        div { 
+            border: 2px solid #ffe487; 
+            background-color: #ffffcc; 
+            padding: 8px; 
+        } 
+        /*]]>*/ 
+    </style> 
+    <script type="text/javascript" src="http://wzdapi.com/widget/emulator.js"></script>
+    <script type="text/javascript"> 
+    //<![CDATA[ 
+    var Dotjari = {
+    
+        // search (query: nhn) var url = "http://cxiol.incruit.com/api/?method=search&q=NHN&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml";
+        // local file 테스트
+        url: 'test.xml',
+        
+        
+        load: function() {
+            UWA.Data.getXml(this.url, function(xmldata) {
+                var div = widget.body.getElementsByClassName('wrap')[0];
+                var items = xmldata.getElementsByTagName('item');
+                var length = items.length;
+                console.log('item length =' + length); //for FF firebug debug
+                for (var i = 0; i < length; i++) {
+                    var ul = widget.createElement('ul');
+                    var title = widget.createElement('li');
+                    
+                    var anchor = widget.createElement('a');
+                    var url = items[i].getElementsByTagName('Link_Url')[0].firstChild.data;
+                    anchor.innerHTML = items[i].getElementsByTagName('Job_Title')[0].firstChild.data;
+                    anchor.href = url;
+                    anchor.target = "_blank";
+                    title.appendChild(anchor);
+        
+                    // TODO title에 url 걸어서 넘어가게...
+                    var company = widget.createElement('li');
+                    company.innerHTML = items[i].getElementsByTagName('Comp_Nm')[0].firstChild.data;
+                    var region = widget.createElement('li');
+                    region.innerHTML = items[i].getElementsByTagName('Region_Nm')[0].firstChild.data;
+                    var regionDesc = widget.createElement('li');
+                    regionDesc.innerHTML = items[i].getElementsByTagName('Region_Det_Nm')[0].firstChild.data; 
+                    ul.appendChild(title);
+                    ul.appendChild(company);
+                    ul.appendChild(region);
+                    ul.appendChild(regionDesc);
+                    div.appendChild(ul); 
+                }
+            });
+        }
+    };
+
+    widget.onLoad = function() {
+        Dotjari.load();
+    };
+    //]]>
+    </script>
+</head>
+
+<body style="padding: 0 2px 2px;">
+    <div class="wrap"></div>
+</body> 
+</html> 
