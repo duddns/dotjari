@@ -1,7 +1,7 @@
 <?php
 
 extract($_GET); 
-$url = "http://cxiol.incruit.com/api/?method=search&q=$q&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml";
+$url = "http://cxiol.incruit.com/api/?method=search&q=$q&start=$start&count=$count&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml";
 
 header ("content-type: text/xml");
 echo getHtml($url); 
