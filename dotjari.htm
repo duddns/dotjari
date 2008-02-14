@@ -98,7 +98,7 @@
         _initEl: function() {
         
             if (this.savePref) {
-                widget.body.getElementsByClassName('searchCondition')[0].style.display = 'none';
+                widget.body.getElementsByClassName('searchWrap')[0].style.display = 'none';
             } else {
                 var savePrefEl = widget.body.getElementsByClassName('savePref')[0];
                 savePrefEl.onclick = function() {
@@ -257,41 +257,45 @@
 </head>
 
 <body>
-    <div class="searchCondition">
-        <p>
-            <input type="checkbox" class="savePref" /><label>검색조건 저장</label>
-        </p>
-        <p>
-            <input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
-        </p>
-        <p>
-            <label>지역</label>
-            <select class="region">
-                <option value="">전체</option>
-                <option value="11">서울</option>
-                <option value="12">부산</option>
-                <option value="13">대구</option>
-                <option value="14">인천</option>
-                <option value="15">광주</option>
-                <option value="16">대전</option>
-                <option value="17">울산</option>
-                <option value="18">경기</option>
-                <option value="19">강원</option>
-                <option value="20">충북</option>
-                <option value="21">충남</option>
-                <option value="22">전북</option>
-                <option value="23">전남</option>
-                <option value="24">경북</option>
-                <option value="25">경남</option>
-                <option value="26">제주</option>
-                <option value="40">특구</option>
-                <option value="59">전국</option>
-                <option value="98">해외</option>
-                <option value="99">기타</option>
-            </select>
-        </p>
+    <div class="searchWrap">
+        <div class="search">
+            <p>
+                <input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
+            </p>
+        </div>
+        <div class="searchCondition">
+            <p>
+                <input type="checkbox" class="savePref" /><label>검색조건 저장</label>
+            </p>
+            <p>
+                <label>지역</label>
+                <select class="region">
+                    <option value="">전체</option>
+                    <option value="11">서울</option>
+                    <option value="12">부산</option>
+                    <option value="13">대구</option>
+                    <option value="14">인천</option>
+                    <option value="15">광주</option>
+                    <option value="16">대전</option>
+                    <option value="17">울산</option>
+                    <option value="18">경기</option>
+                    <option value="19">강원</option>
+                    <option value="20">충북</option>
+                    <option value="21">충남</option>
+                    <option value="22">전북</option>
+                    <option value="23">전남</option>
+                    <option value="24">경북</option>
+                    <option value="25">경남</option>
+                    <option value="26">제주</option>
+                    <option value="40">특구</option>
+                    <option value="59">전국</option>
+                    <option value="98">해외</option>
+                    <option value="99">기타</option>
+                </select>
+            </p>
+        </div>
     </div>
-    <div class="wrap"> 
+    <div class="resultWrap"> 
         <div class="searchResult"></div>
         <div class="pager"></div>
     </div>
