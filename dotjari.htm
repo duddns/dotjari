@@ -12,8 +12,10 @@
     <link rel="icon" type="image/gif" href="icon.gif" />
     
     <widget:preferences>
+        <widget:preference name="savePref" type="boolean" label="검색조건 저장"/>
         <widget:preference name="listCount" type="range" label="리스트 개수" defaultValue="3" step="1" min="3" max="10" />
         <widget:preference name="company" type="text" label="검색회사명"/>
+        <widget:preference name="region" type="text" label="지역"/>
     </widget:preferences>
     
     <style type="text/css">
@@ -37,58 +39,127 @@
     //<![CDATA[
     var Dotjari = {
     
+        savePref: false,
+        
+        listCount: 3,
+        
+        query: '',
+        region: '',
+        
         pager: null,
         
         maxPage: 0,
         currentPage: 1,
         
-        listCount: 3,
-        query: '',
-        
         
         init: function() {
+            
+            this._initPref();
             
             this._initVar();
             
             this._initEl();
             
-            this.load(); 
+            if (this.savePref) {
+                this.load();
+            } 
         },
         
+        
+        /*
+         * 위젯 설정 내용을 가져와서 변수에 저장합니다.
+         */
+        _initPref: function() {
+        
+            this.savePref = widget.getValue('savePref');
+        
+            this.listCount = widget.getValue('listCount');
+            
+            this.query = widget.getValue('company');
+            this.region = widget.getValue('region');
+        },
+        
+        /*
+         * 기본 변수를 초기화 합니다.
+         */
         _initVar: function() {
         
             this.pager = null;
         
             this.maxPage = 0;
             this.currentPage = 1;
-        
-            this.listCount = widget.getValue('listCount');
-            this.query = widget.getValue('company');
         },
         
+        /*
+         * 위젯 HTML을 초기화 합니다.
+         *  - 검색조건 화면 설정  
+         *  - HTML 이벤트 등록
+         */
         _initEl: function() {
+        
+            if (this.savePref) {
+                widget.body.getElementsByClassName('searchCondition')[0].style.display = 'none';
+            } else {
+                var savePrefEl = widget.body.getElementsByClassName('savePref')[0];
+                savePrefEl.onclick = function() {
+                    this.savePref = savePrefEl.checked;
+                    widget.setValue('savePref', this.savePref);
+                    if (this.savePref) {
+                        this._getSearchCondition();
+                        this._savePref();
+                    }
+                }.bind(this);
+            }
 
             var searchBtnEl = widget.body.getElementsByClassName('searchBtn')[0];
             searchBtnEl.onclick = function() {
                 this._initVar();
-                this.query = widget.body.getElementsByClassName('query')[0].value; 
+                this._getSearchCondition();
+                if (this.savePref) {
+                    this._savePref();
+                }
                 this.load();
             }.bind(this);
         },
         
+        /*
+         * 사용자가 선택한 검색조건을 변수에 저장합니다. 
+         */
+        _getSearchCondition: function() {
         
+            this.query = widget.body.getElementsByClassName('query')[0].value;
+            this.region = widget.body.getElementsByClassName('region')[0].value;
+        },
+        
+        /*
+         * 검색조건을 위젯 설정창에 저장합니다.
+         */
+        _savePref: function() {
+            
+            widget.setValue('company', this.query);
+            widget.setValue('region', this.region);
+        },
+        
+        
+        /*
+         * 저장된 검색조건으로 검색 요청을 보냅니다.
+         */
         load: function() {
         
             if ('' == this.query) {
                 return;
             }
             
-            var url = 'test.xml.php?q=' + this.query + '&count=' + this.listCount + '&start=' + (this.currentPage - 1); 
+            var url = 'test.xml.php?q=' + this.query; 
+            url += '&count=' + this.listCount + '&start=' + (this.currentPage - 1) + '&rgn1=' + this.region;
             UWA.Data.getXml(url, function(res) {
                 this._render(res);
             }.bind(this));
         },
         
+        /*
+         * 검색 결과를 화면에 표시합니다.
+         */
         _render: function(res) {
             
             // 리스트 만듦
@@ -100,6 +171,9 @@
             this._renderPager();
         },
         
+        /*
+         * 총 검색 건수와 한 화면에 표시할 갯수를 이용해서 pagenation을 구성합니다.
+         */
         _renderPager: function() {
         
             if (pager) {
@@ -121,6 +195,9 @@
             this.pager = pager;
         },
         
+        /*
+         * 검색 내용을 화면에 표시합니다.
+         */
         _renderList: function(res) {
         
             // 결과창 초기화
@@ -180,8 +257,39 @@
 </head>
 
 <body>
-    <div>
-        <label>검색회사: </label><input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
+    <div class="searchCondition">
+        <p>
+            <input type="checkbox" class="savePref" /><label>검색조건 저장</label>
+        </p>
+        <p>
+            <input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
+        </p>
+        <p>
+            <label>지역</label>
+            <select class="region">
+                <option value="">전체</option>
+                <option value="11">서울</option>
+                <option value="12">부산</option>
+                <option value="13">대구</option>
+                <option value="14">인천</option>
+                <option value="15">광주</option>
+                <option value="16">대전</option>
+                <option value="17">울산</option>
+                <option value="18">경기</option>
+                <option value="19">강원</option>
+                <option value="20">충북</option>
+                <option value="21">충남</option>
+                <option value="22">전북</option>
+                <option value="23">전남</option>
+                <option value="24">경북</option>
+                <option value="25">경남</option>
+                <option value="26">제주</option>
+                <option value="40">특구</option>
+                <option value="59">전국</option>
+                <option value="98">해외</option>
+                <option value="99">기타</option>
+            </select>
+        </p>
     </div>
     <div class="wrap"> 
         <div class="searchResult"></div>
