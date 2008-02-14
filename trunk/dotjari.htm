@@ -12,6 +12,8 @@
     <link rel="icon" type="image/gif" href="icon.gif" />
     
     <widget:preferences>
+            <widget:preference name="company" type="text" label="검색회사명"/>
+            <widget:preference name="sex" type="boolean" label="성별" defaultValue="true" />
     </widget:preferences>
     
     <style type="text/css">
@@ -29,11 +31,23 @@
     var Dotjari = {
         //url: "http://cxiol.incruit.com/api/?method=search&q=NHN&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml",
         // local file 테스트
-        url: 'test.xml.php?q=NHN',
         
         load: function() {
-            UWA.Data.getXml(this.url, function(xmldata) {
-                var div = widget.body.getElementsByClassName('wrap')[0];
+            var query =  widget.getValue('company'); 
+            if(query) {
+                this.loadData(query); 
+            }
+            var submitbtn = widget.body.getElementsByTagName('input')[1];
+            submitbtn.onclick = function() {
+                var query = widget.body.getElementsByTagName('input')[0].value; 
+                this.loadData(query);
+            }.bind(this); 
+        },
+        
+        loadData: function(query) {
+                var url = 'test.xml.php?q='+query; 
+                UWA.Data.getXml(url, function(xmldata) {
+                var div = widget.body.getElementsByClassName('searchResult')[0];
                 var items = xmldata.getElementsByTagName('item');
                 var length = items.length;
                 console.log('item length =' + length); //for FF firebug debug
@@ -47,8 +61,6 @@
                     anchor.href = url;
                     anchor.target = "_blank";
                     title.appendChild(anchor);
-        
-                    // TODO title에 url 걸어서 넘어가게...
                     var company = widget.createElement('li');
                     company.innerHTML = items[i].getElementsByTagName('Comp_Nm')[0].firstChild.data;
                     var region = widget.createElement('li');
@@ -73,6 +85,9 @@
 </head>
 
 <body style="padding: 0 2px 2px;">
-    <div class="wrap"> </div>
+    <div class="wrap"> 
+        <div class="search">검색회사 : <input type=text name=query /><input type=submit value="검색"/></div> 
+        <div class="searchResult"></div> 
+    </div>
 </body> 
 </html> 
