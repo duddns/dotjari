@@ -27,11 +27,9 @@
     <script type="text/javascript"> 
     //<![CDATA[ 
     var Dotjari = {
-    
-        // search (query: nhn) var url = "http://cxiol.incruit.com/api/?method=search&q=NHN&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml";
+        //url: "http://cxiol.incruit.com/api/?method=search&q=NHN&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml",
         // local file 테스트
-        url: 'test.xml',
-        
+        url: 'test.xml.php?q=NHN',
         
         load: function() {
             UWA.Data.getXml(this.url, function(xmldata) {
