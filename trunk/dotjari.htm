@@ -37,6 +37,28 @@
         dl.even {
             background-color: #f6f6f6;
         }
+        
+        div.toggleSC a { 
+            display: block;
+                height: 18px;
+            padding: 5px 10px 0;
+            color: #fff; 
+            text-decoration: none; 
+            background: url(images/bg_searchCondition.gif) repeat-x;
+        }
+        
+        div.toggleSC a:hover { 
+            background: url(images/bg_searchCondition_on.gif) repeat-x;
+        }
+        
+        div.toggleSC span {
+            font-size: 100%;
+            color: #fff;
+            font-weight: bolder;
+            letter-spacing: -1px;
+            background: url(images/arrow_searchCondition.gif) no-repeat right center;
+            padding-right: 15px;
+        }
         /*]]>*/ 
     </style> 
     <script type="text/javascript" src="http://wzdapi.com/widget/emulator.js"></script>
@@ -60,6 +82,8 @@
         
         maxPage: 0,
         currentPage: 1,
+        
+        elements: [],
         
         
         init: function() {
@@ -107,12 +131,37 @@
          */
         _initEl: function() {
         
+            this.elements.query = UWA.$element(widget.body.getElementsByClassName('query')[0]);
+            this.elements.region = UWA.$element(widget.body.getElementsByClassName('region')[0]);
+            this.elements.salary = UWA.$element(widget.body.getElementsByClassName('salary')[0]);
+            this.elements.career = UWA.$element(widget.body.getElementsByClassName('career')[0]);
+            this.elements.scholarship = UWA.$element(widget.body.getElementsByClassName('scholarship')[0]);
+            this.elements.scale = UWA.$element(widget.body.getElementsByClassName('scale')[0]);
+            this.elements.employType = UWA.$element(widget.body.getElementsByClassName('employType')[0]);
+            
+            this.elements.toggleSC = UWA.$element(widget.body.getElementsByClassName('toggleSC')[0]);
+            this.elements.searchCondition = UWA.$element(widget.body.getElementsByClassName('searchCondition')[0]);
+            this.elements.savePref = UWA.$element(widget.body.getElementsByClassName('savePref')[0]);
+            this.elements.searchBtn = UWA.$element(widget.body.getElementsByClassName('searchBtn')[0]);
+            this.elements.searchResult = UWA.$element(widget.body.getElementsByClassName('searchResult')[0]);
+            this.elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
+            
+            this._initElEvents();
+        },
+        
+        _initElEvents: function() {
+            
+            this.elements.toggleSC.onclick = function() {
+                this.elements.searchCondition.toggle();
+                return false;
+            }.bindAsEventListener(this);
+        
             if (this.savePref) {
-                widget.body.getElementsByClassName('searchWrap')[0].style.display = 'none';
+                this.elements.query.value = this.query;
+                this.elements.searchCondition.hide();
             } else {
-                var savePrefEl = widget.body.getElementsByClassName('savePref')[0];
-                savePrefEl.onclick = function() {
-                    this.savePref = savePrefEl.checked;
+                this.elements.savePref.onclick = function() {
+                    this.savePref = this.elements.savePref.checked;
                     widget.setValue('savePref', this.savePref);
                     if (this.savePref) {
                         this._getSearchCondition();
@@ -121,13 +170,13 @@
                 }.bind(this);
             }
 
-            var searchBtnEl = widget.body.getElementsByClassName('searchBtn')[0];
-            searchBtnEl.onclick = function() {
+            this.elements.searchBtn.onclick = function() {
                 this._initVar();
                 this._getSearchCondition();
                 if (this.savePref) {
                     this._savePref();
                 }
+                this.elements.searchCondition.hide();
                 this.load();
             }.bind(this);
         },
@@ -137,13 +186,13 @@
          */
         _getSearchCondition: function() {
         
-            this.query = widget.body.getElementsByClassName('query')[0].value;
-            this.region = widget.body.getElementsByClassName('region')[0].value;
-            this.salary = widget.body.getElementsByClassName('salary')[0].value;
-            this.career = widget.body.getElementsByClassName('career')[0].value;
-            this.scholarship = widget.body.getElementsByClassName('scholarship')[0].value;
-            this.scale = widget.body.getElementsByClassName('scale')[0].value;
-            this.employType = widget.body.getElementsByClassName('employType')[0].value;
+            this.query = this.elements.query.value;
+            this.region = this.elements.region.value;
+            this.salary = this.elements.salary.value;
+            this.career = this.elements.career.value;
+            this.scholarship = this.elements.scholarship.value;
+            this.scale = this.elements.scale.value;
+            this.employType = this.elements.employType.value;
         },
         
         /*
@@ -207,8 +256,7 @@
                 return;
             }
         
-            var pagerEl = widget.body.getElementsByClassName('pager')[0];
-            pagerEl.innerHTML = '';
+            this.elements.pager.innerHTML = '';
             
             var pager = new UWA.Controls.Pager();
             pager.setMaxPageNumber(this.maxPage);
@@ -217,7 +265,7 @@
                 this.currentPage = pageNo;
                 this.load();
             }.bindAsEventListener(this);
-            pager.appendTo(pagerEl);
+            pager.appendTo(this.elements.pager);
             
             this.pager = pager;
         },
@@ -228,8 +276,7 @@
         _renderList: function(res) {
         
             // 결과창 초기화
-            var searchResultEl = widget.body.getElementsByClassName('searchResult')[0];
-            searchResultEl.innerHTML = '';
+            this.elements.searchResult.innerHTML = '';
             
             var items = res.getElementsByTagName('item');
             var length = items.length;
@@ -268,7 +315,7 @@
                 var tooltipText = this._getNodeValue(items[i], 'Job_Cont');
                 UWA.Utils.setTooltip(listEl, tooltipText, 240);
                 
-                searchResultEl.appendChild(listEl);
+                this.elements.searchResult.appendChild(listEl);
             }
         },
         
@@ -293,6 +340,7 @@
                 <input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
             </p>
         </div>
+        <div class="toggleSC"><a href="#"><span>검색 조건</span></a></div>
         <div class="searchCondition">
             <p>
                 <input type="checkbox" class="savePref" /><label>검색조건 저장</label>
