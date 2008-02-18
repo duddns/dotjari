@@ -265,6 +265,9 @@
                 listEl.appendChild(employTypeEl);
                 listEl.appendChild(closeDateEl);
                 
+                var tooltipText = this._getNodeValue(items[i], 'Job_Cont');
+                UWA.Utils.setTooltip(listEl, tooltipText, 240);
+                
                 searchResultEl.appendChild(listEl);
             }
         },
