@@ -6,6 +6,21 @@ $url .= "&q=$q&start=$start&count=$count";
 if (0 < strlen($rgn1)) {
 	$url .= "&rgn1=$rgn1";
 }
+if (0 < strlen($sry)) {
+	$url .= "&sry=$sry";
+}
+if (0 < strlen($crr)) {
+	$url .= "&crr=$crr";
+}
+if (0 < strlen($schol)) {
+	$url .= "&schol=$schol";
+}
+if (0 < strlen($scale)) {
+	$url .= "&schale=$scale";
+}
+if (0 < strlen($epty)) {
+	$url .= "&epty=$epty";
+}
 
 header ("content-type: text/xml");
 echo getHtml($url); 
