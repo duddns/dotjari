@@ -14,13 +14,13 @@
     <widget:preferences>
         <widget:preference name="savePref" type="boolean" label="검색조건 저장"/>
         <widget:preference name="listCount" type="range" label="리스트 개수" defaultValue="3" step="1" min="3" max="10" />
-        <widget:preference name="company" type="text" label="검색회사명"/>
-        <widget:preference name="region" type="text" label="지역"/>
-        <widget:preference name="salary" type="text" label="급여"/>
-        <widget:preference name="career" type="text" label="경력"/>
-        <widget:preference name="scholarship" type="text" label="학력"/>
-        <widget:preference name="scale" type="text" label="기업규모"/>
-        <widget:preference name="employType" type="text" label="채용형태"/>
+        <widget:preference name="company" type="hidden" label="검색회사명"/>
+        <widget:preference name="region" type="hidden" label="지역"/>
+        <widget:preference name="salary" type="hidden" label="급여"/>
+        <widget:preference name="career" type="hidden" label="경력"/>
+        <widget:preference name="scholarship" type="hidden" label="학력"/>
+        <widget:preference name="scale" type="hidden" label="기업규모"/>
+        <widget:preference name="employType" type="hidden" label="채용형태"/>
     </widget:preferences>
     
     <style type="text/css">
@@ -335,11 +335,6 @@
 
 <body>
     <div class="searchWrap">
-        <div class="search">
-            <p>
-                <input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
-            </p>
-        </div>
         <div class="toggleSC"><a href="#"><span>검색 조건</span></a></div>
         <div class="searchCondition">
             <p>
@@ -455,6 +450,9 @@
                     <option value="9">생활직</option>
                     <option value="98">기타</option>
                 </select>
+            </p>
+            <p>
+                <input type="text" class="query" /><button type="submit" class="searchBtn">검색</button>
             </p>
         </div>
     </div>
