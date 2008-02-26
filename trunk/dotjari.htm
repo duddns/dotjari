@@ -221,7 +221,7 @@
             
             var url = 'test.xml.php?';
             url += 'q=' + $H(this.query.toQueryParams()).toQueryString();
-            url += '&count=' + this.listCount + '&start=' + (this.currentPage - 1);
+            url += '&count=' + this.listCount + '&start=' + (this.currentPage * this.listCount);
             url += '&rgn1=' + this.region;
             url += '&sry=' + this.salary;
             url += '&crr=' + this.career;
