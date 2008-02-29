@@ -176,7 +176,6 @@
                 if (this.savePref) {
                     this._savePref();
                 }
-                this.elements.searchCondition.hide();
                 this.load();
             }.bind(this);
         },
@@ -216,6 +215,8 @@
         load: function() {
         
             if ('' == this.query) {
+                alert('검색어를 입력해 주세요.');
+                this.elements.query.focus();
                 return;
             }
             
@@ -231,6 +232,8 @@
             UWA.Data.getXml(url, function(res) {
                 this._render(res);
             }.bind(this));
+            
+            this.elements.searchCondition.hide();
         },
         
         /*
