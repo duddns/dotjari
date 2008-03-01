@@ -220,7 +220,7 @@
                 return;
             }
             
-            var url = 'test.xml.php?';
+            var url = 'dotjari.php?';
             url += 'q=' + $H(this.query.toQueryParams()).toQueryString();
             url += '&count=' + this.listCount + '&start=' + (this.currentPage * this.listCount);
             url += '&rgn1=' + this.region;
@@ -283,6 +283,11 @@
             
             var items = res.getElementsByTagName('item');
             var length = items.length;
+            if (0 == length) {
+                this.elements.searchResult.innerHTML = '검색 결과가 없습니다.';
+                return;
+            }
+            
             for (var i = 0; i < length; i++) {
             
                 var listEl = widget.createElement('dl');
