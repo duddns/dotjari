@@ -40,7 +40,7 @@
         
         div.toggleSC a { 
             display: block;
-                height: 18px;
+            height: 18px;
             padding: 5px 10px 0;
             color: #fff; 
             text-decoration: none; 
@@ -112,7 +112,7 @@
         scholarship: '',
         scale: '',
         employType: '',
-        
+        period: '',
         pager: null,
         
         maxPage: 0,
@@ -181,12 +181,30 @@
             this.elements.resultWrap = UWA.$element(widget.body.getElementsByClassName('resultWrap')[0]);
             this.elements.searchResult = UWA.$element(widget.body.getElementsByClassName('searchResult')[0]);
             this.elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
-            
+            this.elements.period = UWA.$element(widget.body.getElementsByClassName('period')[0]); 
+            this.elements.periodAll = UWA.$element(widget.body.getElementsByClassName('periodAll')[0]); 
             this._initElEvents();
         },
         
         _initElEvents: function() {
-            
+            this.elements.period.onclick = function(event) {
+                var node = event.target.parentNode.parentNode.parentNode;
+                var tr = widget.createElement('tr');
+                var th = widget.createElement('th');
+                var td = widget.createElement('td');
+                td.innerHTML = '<input type=text size=8> - <input type=text size=8><br/>yyyymmdd 형식으로 입력하세요';  
+                
+                tr.appendChild(th); 
+                tr.appendChild(td); 
+                node.appendChild(tr); 
+
+                this.period = ''; 
+            }.bindAsEventListener(this); 
+
+            this.elements.periodAll.onclick = function(event) {
+                this.period = 'all'; 
+            }.bindAsEventListener(this); 
+
             this.elements.toggleSC.onclick = function() {
                 this.elements.searchCondition.toggle();
                 return false;
@@ -265,6 +283,7 @@
             url += '&schol=' + this.scholarship;
             url += '&scale=' + this.scale;
             url += '&epty=' + this.employType;
+            url += '&period=' + this.period;
             UWA.Data.getXml(url, function(res) {
                 this._render(res);
             }.bind(this));
@@ -387,14 +406,14 @@
                 <tr>
                     <th><label>검색조건 저장</label></th>
                     <td>
-                        <input type="checkbox" class="savePref" /><label>검색조건 저장</label>
+                        <input type="checkbox" class="savePref" /> <label>검색조건 저장</label>
                     </td>
                 </tr>
                 <tr>
                     <th><label>지역</label></th>
                     <td>
                         <select class="region">
-                            <option value="">전체</option>
+                            <option value="">전체&nbsp;</option>
                             <option value="11">서울</option>
                             <option value="12">부산</option>
                             <option value="13">대구</option>
@@ -519,13 +538,19 @@
                         <input type="text" class="query" />
                     </td>
                 </tr>
+                <tr>
+                    <th><label>검색기간</label></th>
+                    <td>
+                        <input type="checkbox" class="period" /> <label>기간 선택</label> <input type="checkbox" class="periodAll" checked="checked" /> <label>모든 기간</label>
+                    </td>
+                </tr>
             </table>
             <div>
                 <button type="submit" class="searchBtn">검색</button>
             </div>
         </div>
     </div>
-    <div class="resultWrap" style="display:none;"> 
+    <div class="resultWrap" style="display:none;overflow:hidden;"> 
         <div class="searchResult"></div>
         <div class="pager"></div>
     </div>
