@@ -182,27 +182,29 @@
             this.elements.searchResult = UWA.$element(widget.body.getElementsByClassName('searchResult')[0]);
             this.elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
             this.elements.period = UWA.$element(widget.body.getElementsByClassName('period')[0]); 
-            this.elements.periodAll = UWA.$element(widget.body.getElementsByClassName('periodAll')[0]); 
             this._initElEvents();
         },
         
         _initElEvents: function() {
-            this.elements.period.onclick = function(event) {
+            this.elements.period.onchange = function(event) {
+                var periodValue = event.target.value; 
                 var node = event.target.parentNode.parentNode.parentNode;
-                var tr = widget.createElement('tr');
-                var th = widget.createElement('th');
-                var td = widget.createElement('td');
-                td.innerHTML = '<input type=text size=8> - <input type=text size=8><br/>yyyymmdd 형식으로 입력하세요';  
-                
-                tr.appendChild(th); 
-                tr.appendChild(td); 
-                node.appendChild(tr); 
-
-                this.period = ''; 
-            }.bindAsEventListener(this); 
-
-            this.elements.periodAll.onclick = function(event) {
-                this.period = 'all'; 
+                var rnode = widget.body.getElementsByClassName('setPeriod')[0]; 
+                if(periodValue == "custom") { 
+                    var tr = widget.createElement('tr');
+                    tr.addClassName('setPeriod'); 
+                    var th = widget.createElement('th');
+                    var td = widget.createElement('td');
+                    td.innerHTML = '<input type=text size=8 classname="icd">부터 <input type=text size=8 class="picd">까지<br/> * yyyymmdd 형식';  
+                    tr.appendChild(th); 
+                    tr.appendChild(td); 
+                    node.appendChild(tr); 
+                } else { 
+                    this.period = periodValue; 
+                    if(rnode) {
+                        node.removeChild(rnode); 
+                    } 
+                }
             }.bindAsEventListener(this); 
 
             this.elements.toggleSC.onclick = function() {
@@ -238,7 +240,6 @@
          * 사용자가 선택한 검색조건을 변수에 저장합니다. 
          */
         _getSearchCondition: function() {
-        
             this.query = this.elements.query.value;
             this.region = this.elements.region.value;
             this.salary = this.elements.salary.value;
@@ -246,13 +247,13 @@
             this.scholarship = this.elements.scholarship.value;
             this.scale = this.elements.scale.value;
             this.employType = this.elements.employType.value;
+            this.period = this.elements.period.value;
         },
         
         /*
          * 검색조건을 위젯 설정창에 저장합니다.
          */
         _savePref: function() {
-            
             widget.setValue('company', this.query);
             widget.setValue('region', this.region);
             widget.setValue('salary', this.salary);
@@ -260,6 +261,7 @@
             widget.setValue('scholarship', this.scholarship);
             widget.setValue('scale', this.scale);
             widget.setValue('employType', this.employType);
+            widget.setValue('period', this.period);
         },
         
         
@@ -413,7 +415,7 @@
                     <th><label>지역</label></th>
                     <td>
                         <select class="region">
-                            <option value="">전체&nbsp;</option>
+                            <option value="">전체</option>
                             <option value="11">서울</option>
                             <option value="12">부산</option>
                             <option value="13">대구</option>
@@ -541,7 +543,13 @@
                 <tr>
                     <th><label>검색기간</label></th>
                     <td>
-                        <input type="checkbox" class="period" /> <label>기간 선택</label> <input type="checkbox" class="periodAll" checked="checked" /> <label>모든 기간</label>
+                        <select class="period">
+                            <option value="">전체</option>
+                            <option value="weekly">최근 1주</option>
+                            <option value="monthly">최근 1달</option>
+                            <option value="yearly">최근 1년</option>
+                            <option value="custom">직접선택</option>
+                        </select>
                     </td>
                 </tr>
             </table>
