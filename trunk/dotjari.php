@@ -18,10 +18,12 @@ if (0 < strlen($schol)) {
 if (0 < strlen($scale)) {
 	$url .= "&schale=$scale";
 }
-if (0 < strlen($epty)) {
-	$url .= "&epty=$epty";
+if (0 < (int)$icd) {
+	$url .= "&icd=$icd";
 }
-
+if (0 < (int)$picd) {
+	$url .= "&epty=$picd";
+}
 header ("content-type: text/xml");
 echo getHtml($url); 
 function getHtml($url, $referer=NULL, $type=NULL, $parameter=NULL)
