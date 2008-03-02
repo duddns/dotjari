@@ -173,7 +173,6 @@
             this.elements.scholarship = UWA.$element(widget.body.getElementsByClassName('scholarship')[0]);
             this.elements.scale = UWA.$element(widget.body.getElementsByClassName('scale')[0]);
             this.elements.employType = UWA.$element(widget.body.getElementsByClassName('employType')[0]);
-            
             this.elements.toggleSC = UWA.$element(widget.body.getElementsByClassName('toggleSC')[0]);
             this.elements.searchCondition = UWA.$element(widget.body.getElementsByClassName('searchCondition')[0]);
             this.elements.savePref = UWA.$element(widget.body.getElementsByClassName('savePref')[0]);
@@ -195,7 +194,7 @@
                     tr.addClassName('setPeriod'); 
                     var th = widget.createElement('th');
                     var td = widget.createElement('td');
-                    td.innerHTML = '<input type=text size=8 classname="icd">부터 <input type=text size=8 class="picd">까지<br/> * yyyymmdd 형식';  
+                    td.innerHTML = '<input type=text size=8 class="icd">부터 <input type=text size=8 class="picd">까지<br/> * yyyymmdd 형식';  
                     tr.appendChild(th); 
                     tr.appendChild(td); 
                     node.appendChild(tr); 
@@ -285,6 +284,14 @@
             url += '&schol=' + this.scholarship;
             url += '&scale=' + this.scale;
             url += '&epty=' + this.employType;
+            if(this.period == "custom") {
+                this.icd = UWA.$element(widget.body.getElementsByClassName('icd')[0]).value; 
+                this.picd = UWA.$element(widget.body.getElementsByClassName('picd')[0]).value; 
+                widget.setValue('icd', this.icd);
+                widget.setValue('picd', this.picd);
+                url += '&icd='+this.icd;
+                url += '&picd='+this.picd;
+            }
             url += '&period=' + this.period;
             UWA.Data.getXml(url, function(res) {
                 this._render(res);
@@ -380,7 +387,10 @@
                 listEl.appendChild(closeDateEl);
                 
                 var tooltipText = this._getNodeValue(items[i], 'Job_Cont');
-                UWA.Utils.setTooltip(listEl, tooltipText, 240);
+                if(tooltipText.length > 1) { 
+                    // 설명이 없는경우 툴팁 안띄움
+                    UWA.Utils.setTooltip(listEl, tooltipText, 240);
+                }
                 
                 this.elements.searchResult.appendChild(listEl);
             }
