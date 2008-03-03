@@ -25,6 +25,9 @@
     
     <style type="text/css">
         /*<![CDATA[*/
+        .both {
+            clear: both;
+        }
         dl {
             padding: 4px;
             border-bottom: 1px solid #e8e8e8;
@@ -32,8 +35,12 @@
             float: left;
             width: 100%;
             color: #777;
+            line-height: 20px; 
         }
-        
+        dd {
+            float: left;
+
+        }
         dl.even {
             background-color: #f6f6f6;
         }
@@ -212,6 +219,7 @@
 
             this.elements.toggleSC.onclick = function() {
                 this.elements.searchCondition.toggle();
+                this.elements.searchResult.toggle(); 
                 return false;
             }.bindAsEventListener(this);
         
@@ -308,6 +316,7 @@
          * 검색 결과를 화면에 표시합니다.
          */
         _render: function(res) {
+            this.elements.searchResult.show(); 
             
             // 리스트 만듦
             this._renderList(res);
@@ -345,7 +354,6 @@
          * 검색 내용을 화면에 표시합니다.
          */
         _renderList: function(res) {
-        
             this.elements.resultWrap.show();
             
             // 결과창 초기화
@@ -365,7 +373,8 @@
                 var companyEl = widget.createElement('dd');
                 var regionEl = widget.createElement('dd');
                 var employTypeEl = widget.createElement('dd');
-                var closeDateEl = widget.createElement('dd');
+                var careerTypeEl = widget.createElement('dd');
+                var recruitDateEl = widget.createElement('dd');
                 
                 if (0 == i % 2) {
                     listEl.className = 'even';
@@ -376,19 +385,30 @@
                 var company = this._getNodeValue(items[i], 'Comp_Nm');
                 var region = this._getNodeValue(items[i], 'Region_Nm');
                 var employType = this._getNodeValue(items[i], 'Employ_Ty_Nm');
+                var careerType = this._getNodeValue(items[i], 'Career_Nm');
+                var startDate = this._getNodeValue(items[i], 'Cl_Invite_Start_Dt');
                 var closeDate = this._getNodeValue(items[i], 'Cl_Invite_Close_Dt');
+                var employLimit = this._getNodeValue(items[i], 'Employ_Limit');
                 
                 titleEl.innerHTML = '<a href="' + url + '" target="_blank">' + title + '</a>';
                 companyEl.innerHTML = company;
-                regionEl.innerHTML = region;
-                employTypeEl.innerHTML = employType;
-                closeDateEl.innerHTML = closeDate;
-               
+                employTypeEl.innerHTML = ' / '+employType;
+                careerTypeEl.innerHTML = ' / ';
+                if(careerType != '' && careerType != '경력무관') {
+                    careerTypeEl.innerHTML += '경력 ';
+                }
+                careerTypeEl.innerHTML += careerType; 
+                recruitDateEl.innerHTML += employLimit;
+                if(startDate || closeDate) {
+                    recruitDateEl.innerHTML += ' ('+startDate+'~'+closeDate+')';
+                }
+                recruitDateEl.addClassName('both'); 
                 listEl.appendChild(titleEl);
                 listEl.appendChild(companyEl);
                 listEl.appendChild(regionEl);
                 listEl.appendChild(employTypeEl);
-                listEl.appendChild(closeDateEl);
+                listEl.appendChild(careerTypeEl);
+                listEl.appendChild(recruitDateEl);
                 
                 var tooltipText = this._getNodeValue(items[i], 'Job_Cont');
                 if(tooltipText.length > 1) { 
