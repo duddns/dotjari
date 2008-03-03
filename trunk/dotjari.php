@@ -1,5 +1,4 @@
 <?php
-
 extract($_GET); 
 $url = "http://cxiol.incruit.com/api/?method=search&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml";
 $url .= "&q=$q&start=$start&count=$count";
@@ -18,12 +17,30 @@ if (0 < strlen($schol)) {
 if (0 < strlen($scale)) {
 	$url .= "&schale=$scale";
 }
+
+$today = date('Ymd', mktime()); 
+switch($period) { 
+    case 'yearly':
+        $icd = $today; 
+        $picd = $today-365;
+        break;
+    case 'weekly':
+        $icd = $today; 
+        $picd = $today-7; 
+        break;
+    case 'moonthly':
+        $icd = $today; 
+        $picd = $today-31; 
+        break;
+}
 if (0 < (int)$icd) {
-	$url .= "&icd=$icd";
+    $url .= "&icd=$icd";
 }
 if (0 < (int)$picd) {
-	$url .= "&epty=$picd";
+    $url .= "&picd=$picd";
 }
+
+
 header ("content-type: text/xml");
 echo getHtml($url); 
 function getHtml($url, $referer=NULL, $type=NULL, $parameter=NULL)
