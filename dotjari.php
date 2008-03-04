@@ -19,24 +19,20 @@ if (0 < strlen($scale)) {
 }
 
 $today = date('Ymd', mktime()); 
-switch($period) { 
-    case 'yearly':
-        $icd = $today; 
-        $picd = $today-365;
-        break;
+switch($closeDate) { 
     case 'weekly':
         $icd = $today; 
-        $picd = $today-7; 
+        $picd = $today+7; 
         break;
     case 'moonthly':
         $icd = $today; 
-        $picd = $today-31; 
+        $picd = $today+31; 
         break;
 }
-if (0 < (int)$icd) {
+if (0 < (int)$icd) { // 부터
     $url .= "&icd=$icd";
 }
-if (0 < (int)$picd) {
+if (0 < (int)$picd) { // 까지
     $url .= "&picd=$picd";
 }
 
