@@ -21,6 +21,7 @@
         <widget:preference name="scholarship" type="hidden" label="학력"/>
         <widget:preference name="scale" type="hidden" label="기업규모"/>
         <widget:preference name="employType" type="hidden" label="채용형태"/>
+        <widget:preference name="closeDate" type="hidden" label="채용마감일"/>
     </widget:preferences>
     
     <style type="text/css">
@@ -123,7 +124,8 @@
         scholarship: '',
         scale: '',
         employType: '',
-        period: '',
+        closeDate: '',
+        
         pager: null,
         
         maxPage: 0,
@@ -157,6 +159,12 @@
             
             this.query = widget.getValue('company');
             this.region = widget.getValue('region');
+            this.salary = widget.getValue('salary');
+            this.career = widget.getValue('career');
+            this.scholarship = widget.getValue('scholarship');
+            this.scale = widget.getValue('scale');
+            this.employType = widget.getValue('employType');
+            this.closeDate = widget.getValue('closeDate');
         },
         
         /*
@@ -191,32 +199,12 @@
             this.elements.resultWrap = UWA.$element(widget.body.getElementsByClassName('resultWrap')[0]);
             this.elements.searchResult = UWA.$element(widget.body.getElementsByClassName('searchResult')[0]);
             this.elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
-            this.elements.period = UWA.$element(widget.body.getElementsByClassName('period')[0]); 
+            this.elements.closeDate = UWA.$element(widget.body.getElementsByClassName('closeDate')[0]); 
             this._initElEvents();
         },
         
         _initElEvents: function() {
-            this.elements.period.onchange = function(event) {
-                var periodValue = event.target.value; 
-                var node = event.target.parentNode.parentNode.parentNode;
-                var rnode = widget.body.getElementsByClassName('setPeriod')[0]; 
-                if(periodValue == "custom") { 
-                    var tr = widget.createElement('tr');
-                    tr.addClassName('setPeriod'); 
-                    var th = widget.createElement('th');
-                    var td = widget.createElement('td');
-                    td.innerHTML = '<input type=text size=8 class="icd">부터 <input type=text size=8 class="picd">까지<br/> * yyyymmdd 형식';  
-                    tr.appendChild(th); 
-                    tr.appendChild(td); 
-                    node.appendChild(tr); 
-                } else { 
-                    this.period = periodValue; 
-                    if(rnode) {
-                        node.removeChild(rnode); 
-                    } 
-                }
-            }.bindAsEventListener(this); 
-
+        
             this.elements.toggleSC.onclick = function() {
                 this.elements.searchCondition.toggle();
                 this.elements.searchResult.toggle(); 
@@ -251,6 +239,7 @@
          * 사용자가 선택한 검색조건을 변수에 저장합니다. 
          */
         _getSearchCondition: function() {
+        
             this.query = this.elements.query.value;
             this.region = this.elements.region.value;
             this.salary = this.elements.salary.value;
@@ -258,13 +247,14 @@
             this.scholarship = this.elements.scholarship.value;
             this.scale = this.elements.scale.value;
             this.employType = this.elements.employType.value;
-            this.period = this.elements.period.value;
+            this.closeDate = this.elements.closeDate.value;
         },
         
         /*
          * 검색조건을 위젯 설정창에 저장합니다.
          */
         _savePref: function() {
+        
             widget.setValue('company', this.query);
             widget.setValue('region', this.region);
             widget.setValue('salary', this.salary);
@@ -272,7 +262,7 @@
             widget.setValue('scholarship', this.scholarship);
             widget.setValue('scale', this.scale);
             widget.setValue('employType', this.employType);
-            widget.setValue('period', this.period);
+            widget.setValue('closeDate', this.closeDate);
         },
         
         
@@ -296,15 +286,7 @@
             url += '&schol=' + this.scholarship;
             url += '&scale=' + this.scale;
             url += '&epty=' + this.employType;
-            if(this.period == "custom") {
-                this.icd = UWA.$element(widget.body.getElementsByClassName('icd')[0]).value; 
-                this.picd = UWA.$element(widget.body.getElementsByClassName('picd')[0]).value; 
-                widget.setValue('icd', this.icd);
-                widget.setValue('picd', this.picd);
-                url += '&icd='+this.icd;
-                url += '&picd='+this.picd;
-            }
-            url += '&period=' + this.period;
+            url += '&closeDate=' + this.closeDate;
             UWA.Data.getXml(url, function(res) {
                 this._render(res);
             }.bind(this));
@@ -569,21 +551,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>검색어</label></th>
+                    <th><label>채용공고 마감일</label></th>
                     <td>
-                        <input type="text" class="query" />
+                        <select class="closeDate">
+                            <option value="">전체</option>
+                            <option value="weekly">1주</option>
+                            <option value="monthly">1개월</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
-                    <th><label>검색기간</label></th>
+                    <th><label>검색어</label></th>
                     <td>
-                        <select class="period">
-                            <option value="">전체</option>
-                            <option value="weekly">최근 1주</option>
-                            <option value="monthly">최근 1달</option>
-                            <option value="yearly">최근 1년</option>
-                            <option value="custom">직접선택</option>
-                        </select>
+                        <input type="text" class="query" />
                     </td>
                 </tr>
             </table>
