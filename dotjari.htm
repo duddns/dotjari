@@ -46,65 +46,143 @@
             background-color: #f6f6f6;
         }
         
-        div.toggleSC a { 
+        div.toggle a { 
             display: block;
             height: 18px;
             padding: 5px 10px 0;
             color: #fff; 
             text-decoration: none; 
-            background: url(images/bg_searchCondition.gif) repeat-x;
+            background: url(images/bg_searchOption.gif) repeat-x;
         }
         
-        div.toggleSC a:hover { 
-            background: url(images/bg_searchCondition_on.gif) repeat-x;
+        div.toggle a:hover { 
+            background: url(images/bg_searchOption_on.gif) repeat-x;
         }
         
-        div.toggleSC span {
-            font-size: 100%;
-            color: #fff;
+        
+        /* 검색창 */
+        
+        div.searchBox {
+            border: 2px solid #007ca4;
+            margin: 8px;
+        }
+        
+        div.searchBox strong {
+            float: left;
             font-weight: bolder;
             letter-spacing: -1px;
-            background: url(images/arrow_searchCondition.gif) no-repeat right center;
-            padding-right: 15px;
+            color: #007ca4;
+            padding: 12px 6px 10px 10px;
+            background: url(images/arrow_keyword.gif) no-repeat right 16px;
+            margin-right: 10px;
         }
         
-        div.searchCondition {
-            display: hidden;
-            padding: 5px;
-            border-bottom: 2px solid #e8e8e8;
+        div.searchBox input {
+            float: left;
+            margin: 8px 0;
         }
         
-        div.searchCondition table th {
-            height: 22px;
-            letter-spacing: -1px;
-            padding: 0.5ex 1ex 0.5ex 1.5ex;
-            text-align: left;
-            white-space: nowrap;
-        }
-        
-        div.searchCondition table td {
-            padding: 0.5ex 1ex;
-            width: 100%;
-        }
-        
-        div.searchCondition div {
-            text-align: right;
-        }
-        
-        div.searchCondition button.searchBtn {
+        div.searchBox input.query {
             font-size: 12px;
-            font-weight: bolder;
-            background: #DFEEF1;
-            border: 2px solid #87B5C3;
-            color: #004C75;
+            color: #414141;
+            border: 1px solid #878787;
+            padding: 3px 3px 2px 3px;
+            margin-right: 4px;
         }
         
+        /* search option toggle */
+        
+        div.searchBox div.toggle a {
+            display: block;
+            height: 17px;
+            padding: 6px 0 0 0;
+            background: url(images/bg_toggle_option.gif) repeat-x;
+            text-align: center;
+            font-weight: bolder;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: #8f8f8f;
+        }
+        
+        div.searchBox div.toggle a:hover {
+            background-position: 0 -30px;
+            color: #fff;
+        }
+        
+        div.searchBox div.topen a span {
+            padding-right: 12px;
+            background: url(../images/widget/recruit/arrow_toggle_open.gif) no-repeat right top;
+        }
+        
+        div.searchBox div.tclose a span {
+            padding-right: 12px;
+            background: url(../images/widget/recruit/arrow_toggle_close.gif) no-repeat right top;
+        }
+        
+        div.searchBox div.toggle a:hover span {
+            background-position: right -25px;
+        }
+        
+        
+        /* search option */
+
+        div.searchBox table.option {
+            width: 100%;
+            margin: 0 auto;
+            background: #fafafa;
+            border-top: 1px solid #eee;
+        }
+        
+        div.searchBox table.option td {
+            padding: 2px;
+        }
+        
+        div.searchBox table.option td.field {
+            padding-left: 5px;
+            width: 60px;
+        }
+        
+        div.searchBox table.option td.field span {
+            font-size: 11px;
+            letter-spacing: -1px;
+            padding-left: 5px;
+            background: url(images/bullet1.gif) no-repeat left center;
+        }
+        
+        div.searchBox table.option td select {
+            border: 1px solid #abadb3;
+            padding: 1px;
+        }
+        
+        
+        /* WZDList1 modified */
+
+        div.resultBox ul.WZDList1 li div.entry {
+            padding-left: 8px;
+        }
+        
+        div.resultBox ul.WZDList1 li h6 {
+            padding: 5px 0 0 12px;
+            background: url(images/bullet2.gif) no-repeat 2px 10px;
+        }
+        
+        div.resultBox ul.WZDList1 li h6 a {
+            line-height: 140%;
+        }
+        
+        div.resultBox ul.WZDList1 li h6 a b { /* 검색어 강조 */
+            color: #fff;
+            background: #144066;
+            padding: 2px 2px;
+        }
+        
+        div.resultBox ul.WZDList1 li p.d2 {
+            padding: 3px 0 4px 12px;
+        }
+
         div.pager {
             padding: 10px;
             float: right;
-        }
-        div.resultWrap {
-            overflow: hidden; 
         }
         /*]]>*/ 
     </style> 
@@ -192,53 +270,76 @@
             this.elements.scholarship = UWA.$element(widget.body.getElementsByClassName('scholarship')[0]);
             this.elements.scale = UWA.$element(widget.body.getElementsByClassName('scale')[0]);
             this.elements.employType = UWA.$element(widget.body.getElementsByClassName('employType')[0]);
-            this.elements.toggleSC = UWA.$element(widget.body.getElementsByClassName('toggleSC')[0]);
-            this.elements.searchCondition = UWA.$element(widget.body.getElementsByClassName('searchCondition')[0]);
+            
+            this.elements.toggle = UWA.$element(widget.body.getElementsByClassName('toggle')[0]);
+            
+            this.elements.searchOption = UWA.$element(widget.body.getElementsByClassName('searchOption')[0]);
             this.elements.savePref = UWA.$element(widget.body.getElementsByClassName('savePref')[0]);
-            this.elements.searchBtn = UWA.$element(widget.body.getElementsByClassName('searchBtn')[0]);
-            this.elements.resultWrap = UWA.$element(widget.body.getElementsByClassName('resultWrap')[0]);
-            this.elements.searchResult = UWA.$element(widget.body.getElementsByClassName('searchResult')[0]);
+            this.elements.searchForm = UWA.$element(widget.body.getElementsByClassName('searchForm')[0]);
+            
+            this.elements.resultBox = UWA.$element(widget.body.getElementsByClassName('resultBox')[0]);
+            this.elements.WZDList1 = UWA.$element(widget.body.getElementsByClassName('WZDList1')[0]);
+            
             this.elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
-            this.elements.closeDate = UWA.$element(widget.body.getElementsByClassName('closeDate')[0]); 
+            
+            this.elements.closeDate = UWA.$element(widget.body.getElementsByClassName('closeDate')[0]);
+            
+            this._setSearchOption();
+            
             this._initElEvents();
         },
         
         _initElEvents: function() {
         
-            this.elements.toggleSC.onclick = function() {
-                this.elements.searchCondition.toggle();
-                this.elements.resultWrap.toggle(); 
+            this.elements.toggle.onclick = function() {
+                this.elements.searchOption.toggle();
                 return false;
             }.bindAsEventListener(this);
         
             if (this.savePref) {
                 this.elements.query.value = this.query;
-                this.elements.searchCondition.hide();
+                this.elements.searchOption.hide();
             } else {
                 this.elements.savePref.onclick = function() {
                     this.savePref = this.elements.savePref.checked;
                     widget.setValue('savePref', this.savePref);
                     if (this.savePref) {
-                        this._getSearchCondition();
+                        this._getSearchOption();
                         this._savePref();
                     }
                 }.bind(this);
             }
 
-            this.elements.searchBtn.onclick = function() {
+            this.elements.searchForm.onsubmit = function() {
                 this._initVar();
-                this._getSearchCondition();
+                this._getSearchOption();
                 if (this.savePref) {
                     this._savePref();
                 }
                 this.load();
+                return false;
             }.bind(this);
         },
         
         /*
+         * 변수에 저장된 검색조건을 select box에 반영합니다.
+         */
+        _setSearchOption: function() {
+        
+            this.elements.query.value = this.query;
+            this.elements.region.value = this.region;
+            this.elements.salary.value = this.salary;
+            this.elements.career.value = this.career;
+            this.elements.scholarship.value = this.scholarship;
+            this.elements.scale.value = this.scale;
+            this.elements.employType.value = this.employType;
+            this.elements.closeDate.value = this.closeDate;
+        },
+
+        /*
          * 사용자가 선택한 검색조건을 변수에 저장합니다. 
          */
-        _getSearchCondition: function() {
+        _getSearchOption: function() {
         
             this.query = this.elements.query.value;
             this.region = this.elements.region.value;
@@ -279,7 +380,7 @@
             
             var url = 'dotjari.php?';
             url += 'q=' + $H(this.query.toQueryParams()).toQueryString();
-            url += '&count=' + this.listCount + '&start=' + (this.currentPage * this.listCount);
+            url += '&count=' + this.listCount + '&start=' + ((this.currentPage - 1) * this.listCount);
             url += '&rgn1=' + this.region;
             url += '&sry=' + this.salary;
             url += '&crr=' + this.career;
@@ -291,14 +392,14 @@
                 this._render(res);
             }.bind(this));
             
-            this.elements.searchCondition.hide();
+            this.elements.searchOption.hide();
         },
         
         /*
          * 검색 결과를 화면에 표시합니다.
          */
         _render: function(res) {
-            this.elements.searchResult.show(); 
+            this.elements.WZDList1.show(); 
             
             // 리스트 만듦
             this._renderList(res);
@@ -336,29 +437,23 @@
          * 검색 내용을 화면에 표시합니다.
          */
         _renderList: function(res) {
-            this.elements.resultWrap.show();
+        
+            this.elements.resultBox.show();
             
             // 결과창 초기화
-            this.elements.searchResult.innerHTML = '';
+            this.elements.WZDList1.innerHTML = '';
             
             var items = res.getElementsByTagName('item');
             var length = items.length;
             if (0 == length) {
-                this.elements.searchResult.innerHTML = '검색 결과가 없습니다.';
+                this.elements.WZDList1.innerHTML = '검색 결과가 없습니다.';
                 return;
             }
             
             for (var i = 0; i < length; i++) {
             
-                var listEl = widget.createElement('dl');
-                var titleEl = widget.createElement('dt');
-                var companyEl = widget.createElement('dd');
-                var regionEl = widget.createElement('dd');
-                var employTypeEl = widget.createElement('dd');
-                var careerTypeEl = widget.createElement('dd');
-                var recruitDateEl = widget.createElement('dd');
-                
-                if (0 == i % 2) {
+                var listEl = widget.createElement('li');
+                if (0 != i % 2) {
                     listEl.className = 'even';
                 }
                 
@@ -368,37 +463,36 @@
                 var region = this._getNodeValue(items[i], 'Region_Nm');
                 var employType = this._getNodeValue(items[i], 'Employ_Ty_Nm');
                 var careerType = this._getNodeValue(items[i], 'Career_Nm');
-                var startDate = this._getNodeValue(items[i], 'Cl_Invite_Start_Dt');
                 var closeDate = this._getNodeValue(items[i], 'Cl_Invite_Close_Dt');
                 var employLimit = this._getNodeValue(items[i], 'Employ_Limit');
                 
-                titleEl.innerHTML = '<a href="' + url + '" target="_blank">' + title + '</a>';
-                companyEl.innerHTML = company;
-                employTypeEl.innerHTML = ' / '+employType;
-                careerTypeEl.innerHTML = ' / ';
-                if(careerType != '' && careerType != '경력무관') {
-                    careerTypeEl.innerHTML += '경력 ';
+                if (0 == closeDate.length) {
+                    closeDate = new Date().getFullYear() + '년'; 
+                } else {
+                    var year = closeDate.substring(0, 4);
+                    var month = closeDate.substring(4, 6);
+                    var day = closeDate.substring(6, 8);
+                    closeDate = year ? year + '년 ' : '';
+                    closeDate += month ? month + '월 ' : '';
+                    closeDate += day ? day + '일' : '';
                 }
-                careerTypeEl.innerHTML += careerType; 
-                recruitDateEl.innerHTML += employLimit;
-                if(startDate || closeDate) {
-                    recruitDateEl.innerHTML += ' ('+startDate+'~'+closeDate+')';
-                }
-                recruitDateEl.addClassName('both'); 
-                listEl.appendChild(titleEl);
-                listEl.appendChild(companyEl);
-                listEl.appendChild(regionEl);
-                listEl.appendChild(employTypeEl);
-                listEl.appendChild(careerTypeEl);
-                listEl.appendChild(recruitDateEl);
                 
+                employLimit = employLimit ? employLimit : '채용시까지';
+                
+                var html = [];
+                html.push('<div class="entry"><h6><a class="sub1" target="_blank" href="', url, '">');
+                html.push(title, '</a></h6><p class="d2">');
+                html.push(company, ' / ', region, ' / ', employType, ' / ', careerType, ' / ', closeDate, ' / ', employLimit, '</p></div>');
+                
+                listEl.innerHTML = html.join('');
+
                 var tooltipText = this._getNodeValue(items[i], 'Job_Cont');
                 if(tooltipText.length > 1) { 
                     // 설명이 없는경우 툴팁 안띄움
                     UWA.Utils.setTooltip(listEl, tooltipText, 240);
                 }
                 
-                this.elements.searchResult.appendChild(listEl);
+                this.elements.WZDList1.appendChild(listEl);
             }
         },
         
@@ -417,18 +511,16 @@
 </head>
 
 <body>
-    <div class="searchWrap">
-        <div class="toggleSC"><a href="#"><span>검색 조건</span></a></div>
-        <div class="searchCondition">
-            <table>
+    <div class="searchBox">
+        <strong>검색어</strong>
+        <form class="searchForm">
+            <p><input type="text" class="query" /><input type="image" src="images/btn_search2.gif" /></p>
+        </form>
+        <div style="clear: both"></div>
+        <div class="searchOption" style="display:none;">
+            <table class="option">
                 <tr>
-                    <th><label>검색조건 저장</label></th>
-                    <td>
-                        <input type="checkbox" class="savePref" /> <label>검색조건 저장</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label>지역</label></th>
+                    <th class="field"><label>지역</label></th>
                     <td>
                         <select class="region">
                             <option value="">전체</option>
@@ -456,7 +548,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>급여</label></th>
+                    <th class="field"><label>급여</label></th>
                     <td>
                         <select class="salary">
                             <option value="">전체</option>
@@ -489,7 +581,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>경력</label></th>
+                    <th class="field"><label>경력</label></th>
                     <td>
                         <select class="career">
                             <option value="">전체</option>
@@ -504,7 +596,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>학력</label></th>
+                    <th class="field"><label>학력</label></th>
                     <td>
                         <select class="scholarship">
                             <option value="">전체</option>
@@ -518,7 +610,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>기업규모</label></th>
+                    <th class="field"><label>기업규모</label></th>
                     <td>
                         <select class="scale">
                             <option value="">전체</option>
@@ -533,7 +625,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>채용형태</label></th>
+                    <th class="field"><label>채용형태</label></th>
                     <td>
                         <select class="employType">
                             <option value="">전체</option>
@@ -551,7 +643,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>채용공고 마감일</label></th>
+                    <th class="field"><label>채용공고 마감일</label></th>
                     <td>
                         <select class="closeDate">
                             <option value="">전체</option>
@@ -561,19 +653,17 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label>검색어</label></th>
+                    <th class="field"><label>조건 저장</label></th>
                     <td>
-                        <input type="text" class="query" />
+                        <input type="checkbox" class="savePref" />
                     </td>
                 </tr>
             </table>
-            <div>
-                <button type="submit" class="searchBtn">검색</button>
-            </div>
         </div>
+        <div class="toggle topen"><a href="#"><span>검색 조건 열기</span></a></div>
     </div>
-    <div class="resultWrap" style="display:none;"> 
-        <div class="searchResult"></div>
+    <div class="resultBox" style="display:none;"> 
+        <div class="searchResult"><ul class="WZDList1"></ul></div>
         <div class="pager"></div>
     </div>
     <div style="clear:both;" />
