@@ -26,24 +26,17 @@
     
     <style type="text/css">
         /*<![CDATA[*/
-        .both {
-            clear: both;
+        div.logo {
+            margin: 20px 0;
+            text-align: center;
         }
-        dl {
-            padding: 4px;
-            border-bottom: 1px solid #e8e8e8;
-            clear: both;
-            float: left;
-            width: 100%;
-            color: #777;
-            line-height: 20px; 
+        
+        div.logo img {
+            margin-bottom: 5px;
         }
-        dd {
-            float: left;
-
-        }
-        dl.even {
-            background-color: #f6f6f6;
+        
+        div.logo p {
+            color: #7E6241;
         }
         
         div.toggle a { 
@@ -111,12 +104,12 @@
         
         div.searchBox div.topen a span {
             padding-right: 12px;
-            background: url(../images/widget/recruit/arrow_toggle_open.gif) no-repeat right top;
+            background: url(images/arrow_toggle_open.gif) no-repeat right top;
         }
         
         div.searchBox div.tclose a span {
             padding-right: 12px;
-            background: url(../images/widget/recruit/arrow_toggle_close.gif) no-repeat right top;
+            background: url(images/arrow_toggle_close.gif) no-repeat right top;
         }
         
         div.searchBox div.toggle a:hover span {
@@ -263,6 +256,8 @@
          */
         _initEl: function() {
         
+            this.elements.logo = UWA.$element(widget.body.getElementsByClassName('logo')[0]);
+            
             this.elements.query = UWA.$element(widget.body.getElementsByClassName('query')[0]);
             this.elements.region = UWA.$element(widget.body.getElementsByClassName('region')[0]);
             this.elements.salary = UWA.$element(widget.body.getElementsByClassName('salary')[0]);
@@ -293,6 +288,13 @@
         
             this.elements.toggle.onclick = function() {
                 this.elements.searchOption.toggle();
+                if (this.elements.toggle.className.match(/\btopen/)) {
+                    this.elements.toggle.className = 'toggle tclose';
+                    this.elements.toggle.innerHTML = '<a href="#"><span>검색 조건 닫기</span></a>';
+                } else {
+                    this.elements.toggle.className = 'toggle topen';
+                    this.elements.toggle.innerHTML = '<a href="#"><span>검색 조건 열기</span></a>';
+                }
                 return false;
             }.bindAsEventListener(this);
         
@@ -378,6 +380,8 @@
                 return;
             }
             
+            this.elements.logo.hide();
+            
             var url = 'dotjari.php?';
             url += 'q=' + $H(this.query.toQueryParams()).toQueryString();
             url += '&count=' + this.listCount + '&start=' + ((this.currentPage - 1) * this.listCount);
@@ -399,7 +403,8 @@
          * 검색 결과를 화면에 표시합니다.
          */
         _render: function(res) {
-            this.elements.WZDList1.show(); 
+        
+            this.elements.WZDList1.show();
             
             // 리스트 만듦
             this._renderList(res);
@@ -511,13 +516,17 @@
 </head>
 
 <body>
+    <div class="logo" style="">
+        <img src="http://img.incruit.com/cxiol/Common/logo_main.gif" />
+        <p>161개 사이트에서 live 채용정보 303,720건 검색가능<p>
+    </div>
     <div class="searchBox">
         <strong>검색어</strong>
         <form class="searchForm">
             <p><input type="text" class="query" /><input type="image" src="images/btn_search2.gif" /></p>
         </form>
         <div style="clear: both"></div>
-        <div class="searchOption" style="display:none;">
+        <div class="searchOption">
             <table class="option">
                 <tr>
                     <th class="field"><label>지역</label></th>
