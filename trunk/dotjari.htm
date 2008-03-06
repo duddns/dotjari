@@ -224,6 +224,8 @@
             
             this._initEl();
             
+            this._getCxiolBI();
+            
             if (this.savePref) {
                 this.load();
             } 
@@ -268,6 +270,7 @@
         _initEl: function() {
         
             this.elements.logo = UWA.$element(widget.body.getElementsByClassName('logo')[0]);
+            this.elements.logo_title = UWA.$element(widget.body.getElementsByClassName('logo_title')[0]);
             
             this.elements.query = UWA.$element(widget.body.getElementsByClassName('query')[0]);
             this.elements.region = UWA.$element(widget.body.getElementsByClassName('region')[0]);
@@ -332,6 +335,13 @@
                 this.load();
                 return false;
             }.bind(this);
+        },
+        
+        _getCxiolBI: function() {
+            
+            UWA.Data.getText('cxiol.php', function(res) {
+                this.elements.logo_title.innerHTML = res;
+            }.bind(this));
         },
         
         /*
@@ -530,7 +540,7 @@
     <div class="container">
         <div class="logo" style="">
             <img src="http://img.incruit.com/cxiol/Common/logo_main.gif" />
-            <p>161개 사이트에서 live 채용정보 303,720건 검색가능<p>
+            <p class="logo_title">161개 사이트에서 live 채용정보 303,720건 검색가능<p>
         </div>
         <div class="searchBox">
             <strong>검색어</strong>
