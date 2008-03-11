@@ -301,14 +301,7 @@
         _initElEvents: function() {
         
             this.elements.toggle.onclick = function() {
-                this.elements.searchOption.toggle();
-                if (this.elements.toggle.className.match(/\btopen/)) {
-                    this.elements.toggle.className = 'toggle tclose';
-                    this.elements.toggle.innerHTML = '<a href="#"><span>검색 조건 열기</span></a>';
-                } else {
-                    this.elements.toggle.className = 'toggle topen';
-                    this.elements.toggle.innerHTML = '<a href="#"><span>검색 조건 닫기</span></a>';
-                }
+                this._toogleSearchOptionButton();
                 return false;
             }.bindAsEventListener(this);
         
@@ -342,6 +335,18 @@
             UWA.Data.getText('cxiol.php', function(res) {
                 this.elements.logo_title.innerHTML = res;
             }.bind(this));
+        },
+        
+        _toogleSearchOptionButton: function() {
+            
+            this.elements.searchOption.toggle();
+            if (this.elements.toggle.className.match(/\btopen/)) {
+                this.elements.toggle.className = 'toggle tclose';
+                this.elements.toggle.innerHTML = '<a href="#"><span>검색 조건 열기</span></a>';
+            } else {
+                this.elements.toggle.className = 'toggle topen';
+                this.elements.toggle.innerHTML = '<a href="#"><span>검색 조건 닫기</span></a>';
+            }
         },
         
         /*
@@ -417,6 +422,7 @@
                 this._render(res);
             }.bind(this));
             
+            this._toogleSearchOptionButton();
             this.elements.searchOption.hide();
         },
         
