@@ -1,7 +1,7 @@
 <?php
 extract($_GET); 
 $url = "http://cxiol.incruit.com/api/?method=search&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml";
-$q = file_get_contents($q);
+$q = rawurlencode($q);
 $url .= "&q=$q&start=$start&count=$count";
 if (0 < strlen($rgn1)) {
 	$url .= "&rgn1=$rgn1";
