@@ -224,11 +224,11 @@
             
             this._initEl();
             
-            this._getCxiolBI();
-            
-            if (this.savePref) {
+            if (0 < this.query.length) {
                 this.load();
-            } 
+            } else {
+                this._getCxiolBI();
+            }
         },
         
         
@@ -241,7 +241,7 @@
         
             this.listCount = widget.getValue('listCount');
             
-            this.query = widget.getValue('company');
+            this.query = (0 < this.query.length) ? this.query : widget.getValue('company');
             this.region = widget.getValue('region');
             this.salary = widget.getValue('salary');
             this.career = widget.getValue('career');
