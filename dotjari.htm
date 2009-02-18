@@ -1,171 +1,219 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:widget="http://wzdapi.com/widget/" lang="ko">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="apiVersion" content="1.0" />
-    <meta name="author" content="돗자리 프로젝트" />
-    <meta name="website" content="http://wzdwoc.springnote.com/pages/719862" />
-    <meta name="description" content="내가 원하는 채용정보를 간편하게 검색하세요~" />
-    <meta name="version" content="1.0" />
-    <meta name="autoRefresh" content="1" />
-    <title>내일검색</title>
-    <link rel="icon" type="image/gif" href="images/favicon.gif" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apiVersion" content="1.1" />
+<meta name="author" content="돗자리 프로젝트" />
+<meta name="website" content="http://wzdwoc.springnote.com/pages/719862" />
+<meta name="description" content="내가 원하는 채용정보를 간편하게 검색하세요~" />
+<meta name="version" content="1.5" />
+<meta name="autoRefresh" content="1" />
+<title>내일검색</title>
+<link rel="icon" type="image/gif" href="images/favicon.gif" />
     
-    <widget:preferences>
-        <widget:preference name="company" type="text" label="검색회사명" />
-        <!-- <widget:preference name="region" type="list" label="지역">
-            <widget:option label="전체" value="" />
-            <widget:option label="서울" value="11" />
-            <widget:option label="부산" value="12" />
-            <widget:option label="대구" value="13" />
-            <widget:option label="인천" value="14" />
-            <widget:option label="광주" value="15" />
-            <widget:option label="대전" value="16" />
-            <widget:option label="울산" value="17" />
-            <widget:option label="경기" value="18" />
-            <widget:option label="강원" value="19" />
-            <widget:option label="충북" value="20" />
-            <widget:option label="충남" value="21" />
-            <widget:option label="전북" value="22" />
-            <widget:option label="전남" value="23" />
-            <widget:option label="경북" value="24" />
-            <widget:option label="경남" value="25" />
-            <widget:option label="제주" value="26" />
-            <widget:option label="특구" value="40" />
-            <widget:option label="전국" value="59" />
-            <widget:option label="해외" value="98" />
-            <widget:option label="기타" value="99" />
-        </widget:preference>
-        <widget:preference name="career" type="list" label="경력">
-            <widget:option label="전체" value="" />
-            <widget:option label="경력무관" value="0" />
-            <widget:option label="신입" value="1" />
-            <widget:option label="1~2년" value="2" />
-            <widget:option label="2~3년" value="3" />
-            <widget:option label="3~5년" value="4" />
-            <widget:option label="5~10년" value="5" />
-            <widget:option label="10년 이상" value="6" />
-        </widget:preference>
-        <widget:preference name="employType" type="list" label="채용형태">
-            <widget:option label="전체" value="" />
-            <widget:option label="정규직" value="1" />
-            <widget:option label="계약직" value="2" />
-            <widget:option label="병역특례" value="3" />
-            <widget:option label="인턴" value="4" />
-            <widget:option label="파견대행" value="5" />
-            <widget:option label="헤드헌팅" value="6" />
-            <widget:option label="아르바이트" value="7" />
-            <widget:option label="프리랜서" value="8" />
-            <widget:option label="생활직" value="9" />
-            <widget:option label="기타" value="98" />
-        </widget:preference>
-        <widget:preference name="closeDate" type="list" label="채용마감일">
-            <widget:option label="전체" value="" />
-            <widget:option label="1주" value="weekly" />
-            <widget:option lebel="1개월" value="monthly" />
-        </widget:preference> -->
-        <widget:preference name="savePref" type="boolean" label="검색조건 저장" />
-        <widget:preference name="listCount" type="range" label="리스트 개수" defaultValue="3" step="1" min="3" max="10" />
-    </widget:preferences>
+<widget:preferences>
+    <widget:preference name="query" type="text" label="검색어" defaultValue="프로그래머" />
+    <!-- <widget:preference name="region" type="list" label="지역">
+        <widget:option label="전체" value="" />
+        <widget:option label="서울" value="11" />
+        <widget:option label="부산" value="12" />
+        <widget:option label="대구" value="13" />
+        <widget:option label="인천" value="14" />
+        <widget:option label="광주" value="15" />
+        <widget:option label="대전" value="16" />
+        <widget:option label="울산" value="17" />
+        <widget:option label="경기" value="18" />
+        <widget:option label="강원" value="19" />
+        <widget:option label="충북" value="20" />
+        <widget:option label="충남" value="21" />
+        <widget:option label="전북" value="22" />
+        <widget:option label="전남" value="23" />
+        <widget:option label="경북" value="24" />
+        <widget:option label="경남" value="25" />
+        <widget:option label="제주" value="26" />
+        <widget:option label="특구" value="40" />
+        <widget:option label="전국" value="59" />
+        <widget:option label="해외" value="98" />
+        <widget:option label="기타" value="99" />
+    </widget:preference>
+    <widget:preference name="career" type="list" label="경력">
+        <widget:option label="전체" value="" />
+        <widget:option label="경력무관" value="0" />
+        <widget:option label="신입" value="1" />
+        <widget:option label="1~2년" value="2" />
+        <widget:option label="2~3년" value="3" />
+        <widget:option label="3~5년" value="4" />
+        <widget:option label="5~10년" value="5" />
+        <widget:option label="10년 이상" value="6" />
+    </widget:preference>
+    <widget:preference name="employType" type="list" label="채용형태">
+        <widget:option label="전체" value="" />
+        <widget:option label="정규직" value="1" />
+        <widget:option label="계약직" value="2" />
+        <widget:option label="병역특례" value="3" />
+        <widget:option label="인턴" value="4" />
+        <widget:option label="파견대행" value="5" />
+        <widget:option label="헤드헌팅" value="6" />
+        <widget:option label="아르바이트" value="7" />
+        <widget:option label="프리랜서" value="8" />
+        <widget:option label="생활직" value="9" />
+        <widget:option label="기타" value="98" />
+    </widget:preference>
+    <widget:preference name="closeDate" type="list" label="채용마감일">
+        <widget:option label="전체" value="" />
+        <widget:option label="1주" value="weekly" />
+        <widget:option lebel="1개월" value="monthly" />
+    </widget:preference>
+    <widget:preference name="listCount" type="range" label="리스트 개수" defaultValue="3" step="1" min="3" max="10" /> -->
+</widget:preferences>
     
-    <style type="text/css">
-        /*<![CDATA[*/
-        div.container {
-            font-size: 12px; 
-            font-family:"굴림", "돋움", Seoul, "한강체"; 
-            color:#464646; 
-            line-height: 16px;
-        }
-        
-        select {
-            width: 80px;
-        }
-        
-        
-        /* WZDList1 modified */
+<style type="text/css">
+    /*<![CDATA[*/
+    div.container {
+        font-size: 12px; 
+        font-family:"굴림", "돋움", Seoul, "한강체"; 
+        color:#464646; 
+        line-height: 16px;
+        border: 1px solid #EBEBEB;
+    }
+    
+    div.logo {
+        margin: 7px 0 3px 7px;
+    }
+    
+    div.logo img {
+        border: none;
+    }
+    
+    form.searchForm fieldset {
+        border: none;
+        border-bottom: 1px solid #EBEBEB;
+        background: #05A0BA;
+        height: 26px;
+    }
+    
+    form.searchForm fieldset input {
+        vertical-align: middle;
+        margin-top: 3px;
+        fload: left;
+    }
+    
+    form.searchForm fieldset input.query {
+        width: 115px; 
+        height: 18px; 
+        border: 1px solid #CCCCCC; 
+        font-size: 11px;
+        line-height: 1.5;
+    }
 
-        div.resultBox ul.WZDList1 li div.entry {
-            padding-left: 8px;
-        }
-        
-        div.resultBox ul.WZDList1 li h6 {
-            padding: 5px 0 0 12px;
-            background: url(images/bullet2.gif) no-repeat 2px 10px;
-        }
-        
-        div.resultBox ul.WZDList1 li h6 a {
-            line-height: 140%;
-        }
-        
-        div.resultBox ul.WZDList1 li h6 a b { /* 검색어 강조 */
-            color: #fff;
-            background: #144066;
-            padding: 2px 2px;
-        }
-        
-        div.resultBox ul.WZDList1 li p.d2 {
-            padding: 3px 0 4px 12px;
-        }
+    /* WZDList1 modified */
 
-        div.pager {
-            padding: 10px;
-            float: right;
-        }
-        /*]]>*/
-    </style> 
-    <script type="text/javascript" src="http://wzdapi.com/widget/emulator.js"></script>
-    <script type="text/javascript"> 
-    //<![CDATA[
+    div.resultBox ul.WZDList1 li div.entry {
+        padding-left: 8px;
+    }
+    
+    div.resultBox ul.WZDList1 li h6 {
+        padding: 5px 0 0 12px;
+        background: url(images/bullet2.gif) no-repeat 2px 10px;
+        /* 한줄로만 보이기 */
+        height: 20px;
+        line-height: 20px;
+        overflow: hidden;
+    }
+    
+    div.resultBox ul.WZDList1 li h6 a b { /* 검색어 강조 */
+        color: #fff;
+        background: #144066;
+        padding: 2px 2px;
+    }
+    
+    div.resultBox ul.WZDList1 li p.d2 {
+        padding: 3px 0 4px 12px;
+        /* 한줄로만 보이기 */
+        height: 15px;
+        line-height: 17px;
+        overflow: hidden;
+    }
+    
+    /* 하단 페이지네이션  */
+
+    div.pagerContainer {
+        height: 15px;
+        padding: 10px;
+    }
+    
+    div.innerPagerContainer {
+        width: 155px;
+        margin: 0 auto;
+    }
+
+    div.pager {
+        float: left;
+    }
+    
+    div.more {
+        float: right;
+    }
+    
+    div.more a {
+        font-weight: bloder;
+        color: #00688E;
+        text-decoration: none;
+    }
+    
+    /* ie hack */
+    form.searchForm fieldset {
+        /height: 30px;
+    }
+    /*]]>*/
+</style> 
+<script type="text/javascript" src="http://wzdapi.com/widget/emulator.js"></script>
+<script type="text/javascript"> 
+//<![CDATA[
     var Dotjari = {
     
-        savePref: false,
+        _listCount: 3,
         
-        listCount: 3,
+        _query: '',
+        _region: '',
+        _career: '',
+        _employType: '',
+        _closeDate: '',
         
-        query: '',
-        region: '',
-        career: '',
-        employType: '',
-        closeDate: '',
+        _pager: null,
         
-        pager: null,
+        _maxPage: 0,
+        _currentPage: 1,
         
-        maxPage: 0,
-        currentPage: 1,
-        
-        elements: [],
+        _elements: [],
         
         
         init: function() {
             
             this._initPref();
-            
             this._initVar();
-            
             this._initEl();
-            
-            this._getBI();
-            
-            if (0 < this.query.length) {
-                this.load();
-            }
         },
-        
         
         /*
          * 위젯 설정 내용을 가져와서 변수에 저장합니다.
          */
         _initPref: function() {
         
-            this.savePref = widget.getValue('savePref');
-        
-            //this.listCount = widget.getValue('listCount');
+            this._query = widget.getValue('query');
+
+            this._region = widget.getValue('region');
+            this._career = widget.getValue('career');
+            this._employType = widget.getValue('employType');
+            this._closeDate = widget.getValue('closeDate');
+            this._listCount = widget.getValue('listCount');
             
-            this.query = (0 < this.query.length) ? this.query : widget.getValue('company');
-            this.region = widget.getValue('region');
-            this.career = widget.getValue('career');
-            this.employType = widget.getValue('employType');
-            this.closeDate = widget.getValue('closeDate');
+            // 설정값이 없을 경우에 사용할 기본값
+            this._region = this._region ? this._region : '';
+            this._career = this._career ? this._career : '';
+            this._employType = this._employType ? this._employType : '';
+            this._closeDate = this._closeDate ? this._closeDate : '';
+            this._listCount = this._listCount ? this._listCount : 3;
         },
         
         /*
@@ -173,172 +221,79 @@
          */
         _initVar: function() {
         
-            this.pager = null;
+            this._pager = null;
         
-            this.maxPage = 0;
-            this.currentPage = 1;
+            this._maxPage = 0;
+            this._currentPage = 1;
         },
         
         /*
-         * 위젯 HTML을 초기화 합니다.
-         *  - 검색조건 화면 설정  
-         *  - HTML 이벤트 등록
+         * DOM Element를 캐싱하기 위해 지역변수에 저장합니다.  
          */
         _initEl: function() {
-        
-            this.elements.logo_title = UWA.$element(widget.body.getElementsByClassName('logo_title')[0]);
+
+            this._elements.error = UWA.$element(widget.body.getElementsByClassName('error')[0]);
+            this._elements.errorColse = UWA.$element(widget.body.getElementsByClassName('errorClose')[0]);
+            this._elements.errorMessage = UWA.$element(widget.body.getElementsByClassName('errorMessage')[0]);
             
-            this.elements.query = UWA.$element(widget.body.getElementsByClassName('query')[0]);
-            this.elements.region = UWA.$element(widget.body.getElementsByClassName('region')[0]);
-            this.elements.career = UWA.$element(widget.body.getElementsByClassName('career')[0]);
-            this.elements.employType = UWA.$element(widget.body.getElementsByClassName('employType')[0]);
+            this._elements.logo_title = UWA.$element(widget.body.getElementsByClassName('logo_title')[0]);
             
-            this.elements.toggle = UWA.$element(widget.body.getElementsByClassName('toggle')[0]);
+            this._elements.searchForm = UWA.$element(widget.body.getElementsByClassName('searchForm')[0]);
+            this._elements.query = UWA.$element(widget.body.getElementsByClassName('query')[0]);
             
-            this.elements.searchOption = UWA.$element(widget.body.getElementsByClassName('searchOption')[0]);
-            this.elements.savePref = UWA.$element(widget.body.getElementsByClassName('savePref')[0]);
-            this.elements.searchForm = UWA.$element(widget.body.getElementsByClassName('searchForm')[0]);
+            this._elements.resultBox = UWA.$element(widget.body.getElementsByClassName('resultBox')[0]);
+            this._elements.WZDList1 = UWA.$element(widget.body.getElementsByClassName('WZDList1')[0]);
             
-            this.elements.resultBox = UWA.$element(widget.body.getElementsByClassName('resultBox')[0]);
-            this.elements.WZDList1 = UWA.$element(widget.body.getElementsByClassName('WZDList1')[0]);
+            this._elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
+            this._elements.moreBtn = UWA.$element(widget.body.getElementsByClassName('moreBtn')[0]);
             
-            this.elements.pager = UWA.$element(widget.body.getElementsByClassName('pager')[0]);
-            
-            this.elements.closeDate = UWA.$element(widget.body.getElementsByClassName('closeDate')[0]);
-            
-            this._setSearchOption();
+            this._elements.closeDate = UWA.$element(widget.body.getElementsByClassName('closeDate')[0]);
+
+            // 검색창에 기본 검색어 입력
+            this._elements.query.value = this._query;
             
             this._initElEvents();
         },
-        
+
+        /*
+         * HTML event를 등록합니다.
+         *
+         */
         _initElEvents: function() {
         
-            this.elements.toggle.onclick = function() {
-                this._toogleSearchOptionButton();
-                return false;
-            }.bindAsEventListener(this);
-        
-            if (this.savePref) {
-                this.elements.query.value = this.query;
-                this.elements.searchOption.hide();
-            } else {
-                this.elements.savePref.onclick = function() {
-                    this.savePref = this.elements.savePref.checked;
-                    widget.setValue('savePref', this.savePref);
-                    if (this.savePref) {
-                        this._getSearchOption();
-                        this._savePref();
-                    }
-                }.bind(this);
-            }
+            this._elements.searchForm.onsubmit = function() {
 
-            this.elements.searchForm.onsubmit = function() {
-                this._initVar();
-                this._getSearchOption();
-                if (this.savePref) {
-                    this._savePref();
+                this.query = this.elements.query.value;
+                if ('' == this._query) {
+                    alert('검색어를 입력해 주세요.');
+                    this._elements.query.focus();
+                    return;
                 }
+                this._initVar();
                 this.load();
                 return false;
             }.bind(this);
         },
-        
-        _getBI: function() {
-            
-            UWA.Data.getText('nail.php', function(res) {
-                this.elements.logo_title.innerHTML = res;
-            }.bind(this));
-        },
-        
-        _toogleSearchOptionButton: function() {
-            
-            this.elements.searchOption.toggle();
-            if (this.elements.toggle.className.match(/\btopen/)) {
-                this._closeSearchOptionButton();
-            } else {
-                this._openSearchOptionButton();
-            }
-        },
-        
-        _openSearchOptionButton: function() {
-        
-            this.elements.toggle.className = 'toggle topen';
-            this.elements.toggle.innerHTML = '<a href="#"><img src="images/Widget_naeilsearch_03.gif" width="245" height="50" border="0" />';
-        },
-        
-        _closeSearchOptionButton: function() {
-        
-                this.elements.toggle.className = 'toggle tclose';
-                this.elements.toggle.innerHTML = '<a href="#"><img src="images/Widget_naeilsearch_04.gif" width="245" height="50" border="0" />';
-        },
-        
-        /*
-         * 변수에 저장된 검색조건을 select box에 반영합니다.
-         */
-        _setSearchOption: function() {
-        
-            this.elements.query.value = this.query;
-            this.elements.region.value = this.region;
-            this.elements.career.value = this.career;
-            this.elements.employType.value = this.employType;
-            this.elements.closeDate.value = this.closeDate;
-        },
 
-        /*
-         * 사용자가 선택한 검색조건을 변수에 저장합니다. 
-         */
-        _getSearchOption: function() {
-        
-            this.query = this.elements.query.value;
-            this.region = this.elements.region.value;
-            this.career = this.elements.career.value;
-            this.employType = this.elements.employType.value;
-            this.closeDate = this.elements.closeDate.value;
-        },
-        
-        /*
-         * 검색조건을 위젯 설정창에 저장합니다.
-         */
-        _savePref: function() {
-        
-            widget.setValue('company', this.query);
-            widget.setValue('region', this.region);
-            widget.setValue('salary', this.salary);
-            widget.setValue('career', this.career);
-            widget.setValue('scholarship', this.scholarship);
-            widget.setValue('scale', this.scale);
-            widget.setValue('employType', this.employType);
-            widget.setValue('closeDate', this.closeDate);
-        },
-        
-        
         /*
          * 저장된 검색조건으로 검색 요청을 보냅니다.
          */
         load: function() {
         
-            if ('' == this.query) {
-                alert('검색어를 입력해 주세요.');
-                this.elements.query.focus();
+            if ('' == this._query) {
                 return;
             }
             
-            var url = 'dotjari.php?';
-            url += 'q=' + $H(this.query.toQueryParams()).toQueryString();
-            url += '&count=' + this.listCount + '&start=' + ((this.currentPage - 1) * this.listCount);
-            url += '&rgn1=' + this.region;
-            url += '&sry=' + this.salary;
-            url += '&crr=' + this.career;
-            url += '&schol=' + this.scholarship;
-            url += '&scale=' + this.scale;
-            url += '&epty=' + this.employType;
-            url += '&closeDate=' + this.closeDate;
+            var url = '/proxy/naeilapi.incruit.com/api/?method=search&apikey=A45F959AEA04D2799C4C1824DF101FE7FC0EB507&out=xml&';
+            url += 'q=' + $H(this._query.toQueryParams()).toQueryString();
+            url += '&count=' + this._listCount + '&start=' + ((this._currentPage - 1) * this._listCount);
+            url += '&rgn1=' + this._region;
+            url += '&crr=' + this._career;
+            url += '&epty=' + this._employType;
+            url += '&closeDate=' + this._closeDate;
             UWA.Data.getXml(url, function(res) {
                 this._render(res);
             }.bind(this));
-            
-            this._closeSearchOptionButton();
-            this.elements.searchOption.hide();
         },
         
         /*
@@ -346,15 +301,17 @@
          */
         _render: function(res) {
         
-            this.elements.WZDList1.show();
+            this._elements.WZDList1.show();
             
             // 리스트 만듦
             this._renderList(res);
-            
+
             // pager 만듦
             var totalCount = this._getNodeValue(res, 'TotalCount');
-            this.maxPage = Math.ceil(totalCount / this.listCount);
+            this._maxPage = Math.ceil(totalCount / this._listCount);
             this._renderPager();
+            
+            this._renderMore();
         },
         
         /*
@@ -366,18 +323,23 @@
                 return;
             }
         
-            this.elements.pager.innerHTML = '';
+            this._elements.pager.innerHTML = '';
             
             var pager = new UWA.Controls.Pager();
-            pager.setMaxPageNumber(this.maxPage);
-            pager.selectPage(this.currentPage);
+            pager.setMaxPageNumber(this._maxPage);
+            pager.selectPage(this._currentPage);
             pager.onChange = function(pageNo) {
-                this.currentPage = pageNo;
+                this._currentPage = pageNo;
                 this.load();
             }.bindAsEventListener(this);
-            pager.appendTo(this.elements.pager);
+            pager.appendTo(this._elements.pager);
             
-            this.pager = pager;
+            this._pager = pager;
+        },
+
+        _renderMore: function() {
+
+            this._elements.moreBtn.href = 'http://naeil.incruit.com/search/?q=' + this._query;
         },
         
         /*
@@ -385,15 +347,15 @@
          */
         _renderList: function(res) {
         
-            this.elements.resultBox.show();
+            this._elements.resultBox.show();
             
             // 결과창 초기화
-            this.elements.WZDList1.innerHTML = '';
+            this._elements.WZDList1.innerHTML = '';
             
             var items = res.getElementsByTagName('item');
             var length = items.length;
             if (0 == length) {
-                this.elements.WZDList1.innerHTML = '검색 결과가 없습니다.';
+                this._elements.WZDList1.innerHTML = '검색 결과가 없습니다.';
                 return;
             }
             
@@ -427,8 +389,8 @@
                 employLimit = employLimit ? employLimit : '채용시까지';
                 
                 var html = [];
-                html.push('<div class="entry"><h6><a class="sub1" target="_blank" href="', url, '">');
-                html.push(title, '</a></h6><p class="d2">');
+                html.push('<div class="entry"><h6><a class="sub1" target="_blank" href="', url, '"><span>');
+                html.push(title, '</span></a></h6><p class="d2">');
                 html.push(company, ' / ', region, ' / ', employType, ' / ', careerType, ' / ', closeDate, ' / ', employLimit, '</p></div>');
                 
                 listEl.innerHTML = html.join('');
@@ -439,7 +401,7 @@
                     UWA.Utils.setTooltip(listEl, tooltipText, 240);
                 }
                 
-                this.elements.WZDList1.appendChild(listEl);
+                this._elements.WZDList1.appendChild(listEl);
             }
         },
         
@@ -452,138 +414,35 @@
 
     widget.onLoad = function() {
         Dotjari.init();
+        Dotjari.load();
     };
-    //]]>
-    </script>
+//]]>
+</script>
 </head>
 
 <body>
     <div class="container">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                <td height="81" align="center" background="images/Widget_naeilsearch_tbg.gif"><img src="images/Widget_naeilsearch_01.gif" width="245" height="81" /></td>
-            </tr>
-            <tr>
-                <td align="center" style="padding:10px 0 0px 0"><strong>331</strong>개 사이트에서 live 채용정보 <br />
-                    <strong>747,745</strong>건 검색가능</td>
-            </tr>
-            <tr>
-                <td height="16" background="images/Widget_naeilsearch_02.gif">&nbsp;</td>
-            </tr>
-            <tr>
-                <td align="center" style="padding: 8px 0 8px 0">
-                    <table width="95%" border="0" cellspacing="3" cellpadding="0">
-                        <tr>
-                            <td width="80" align="left"><img src="images/bullet_wns.gif" width="3" height="11" /> 검색어</td>
-                            <td align="left">
-                                <form class="searchForm">
-                                    <input name="search" class="query" style="width:115px; height:15px; border:1px solid #CCCCCC; font-size:11px" />
-                                    <input type="image" src="images/btn_Wns.gif" width="19" height="19" border="0" align="absmiddle" />
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td background="images/wns_line.gif"></td>
-            </tr>
-            <tr>
-                <td align="center" style="padding: 8px 0 15px 0">
-                    <div class="searchOption">
-                        <table width="95%" border="0" cellspacing="3" cellpadding="0">
-                            <tr>
-                                <td width="80" align="left">지역</td>
-                                <td align="left">
-                                    <select class="region">
-                                        <option value="">전체</option>
-                                        <option value="11">서울</option>
-                                        <option value="12">부산</option>
-                                        <option value="13">대구</option>
-                                        <option value="14">인천</option>
-                                        <option value="15">광주</option>
-                                        <option value="16">대전</option>
-                                        <option value="17">울산</option>
-                                        <option value="18">경기</option>
-                                        <option value="19">강원</option>
-                                        <option value="20">충북</option>
-                                        <option value="21">충남</option>
-                                        <option value="22">전북</option>
-                                        <option value="23">전남</option>
-                                        <option value="24">경북</option>
-                                        <option value="25">경남</option>
-                                        <option value="26">제주</option>
-                                        <option value="40">특구</option>
-                                        <option value="59">전국</option>
-                                        <option value="98">해외</option>
-                                        <option value="99">기타</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">경력</td>
-                                <td align="left">
-                                    <select class="career">
-                                        <option value="">전체</option>
-                                        <option value="0">경력무관</option>
-                                        <option value="1">신입</option>
-                                        <option value="2">1~2년</option>
-                                        <option value="3">2~3년</option>
-                                        <option value="4">3~5년</option>
-                                        <option value="5">5~10년</option>
-                                        <option value="6">10년 이상</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">채용형태</td>
-                                <td align="left">
-                                    <select class="employType">
-                                        <option value="">전체</option>
-                                        <option value="1">정규직</option>
-                                        <option value="2">계약직</option>
-                                        <option value="3">병역특례</option>
-                                        <option value="4">인턴</option>
-                                        <option value="5">파견대행</option>
-                                        <option value="6">헤드헌팅</option>
-                                        <option value="7">아르바이트</option>
-                                        <option value="8">프리랜서</option>
-                                        <option value="9">생활직</option>
-                                        <option value="98">기타</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">채용마감일</td>
-                                <td align="left">
-                                    <select class="closeDate">
-                                        <option value="">전체</option>
-                                        <option value="weekly">1주</option>
-                                        <option value="monthly">1개월</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">&nbsp;</td>
-                                <td align="left">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td align="left">조건 저장</td>
-                                <td align="left">
-                                    <input type="checkbox" name="checkbox" class="savePref" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td height="50" align="center" valign="top" background="images/Widget_naeilsearch_bbg.gif"><div class="toggle topen"><a href="#"><img src="images/Widget_naeilsearch_03.gif" width="245" height="50" border="0" /></a></div></td>
-            </tr>
-        </table>
+        <div class="logo"><a href="http://naeil.incruit.com/" title="내일검색" target="_blank"><img alt="내일검색" src="http://img.incruit.com/naeil/wedget/bi_naeil_widget.gif" /></a></div>
+        <div class="error" style="display:none;">
+            <button class="errorClose" type="button"><span>닫기</span></button>
+            <p class="errorMessage"></p>
+        </div>
+        <p class="searchText"></p>
+        <form class="searchForm" style="text-align:center;">
+            <fieldset>
+                <input type="text" name="query" class="query" />
+                <input type="image" class="searchBtn" src="http://img.incruit.com/naeil/wedget/btn_default_search.gif" />
+            </fieldset>
+        </form>
         <div class="resultBox" style="display:none;"> 
             <div class="searchResult"><ul class="WZDList1"></ul></div>
-            <div class="pager"></div>
+            
+            <div class="pagerContainer">
+                <div class="innerPagerContainer">
+                    <div class="pager"></div>
+                    <div class="more"><a class="moreBtn" href="http://naeil.incruit.com/search/?q=" title="more" target="_blank">more</a></div>
+                </div>
+            </div>
         </div>
         <div style="clear:both;" />
     </div>
