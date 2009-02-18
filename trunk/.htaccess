@@ -1,0 +1,4 @@
+# apache mod_proxy
+
+RewriteEngine on
+RewriteRule ^proxy/(.+)$ http://$1 [P,L]
